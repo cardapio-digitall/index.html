@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quadrangular - Portal de Fé</title>
+  
+  <!-- Tipografia de Luxo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --gray-light: #f4f4f4;
+      --gray-border: #dddddd;
+      --font-main: 'Inter', sans-serif;
+      --font-logo: 'Montserrat', sans-serif;
+      --font-serif: 'Libre Baskerville', serif;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--white);
+      color: var(--black);
+      line-height: 1.6;
+    }
+
+    /* --- HEADER PROFISSIONAL --- */
+    header {
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--white);
+      border-bottom: 2px solid var(--black);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-text {
+      font-family: var(--font-logo);
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+    }
+
+    /* Logo conforme a imagem enviada (Cruz, Pomba, Cálice, Coroa) */
+    .logo-container {
+      width: 50px;
+      height: 50px;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4px;
+      cursor: pointer;
+    }
+
+    .logo-svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--white);
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    /* --- CONTEÚDO --- */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 5% 6rem;
+    }
+
+    .view { display: none; animation: slideUp 0.6s ease; }
+    .view.active { display: block; }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- HUB INICIAL (CARDÁPIO) --- */
+    .welcome-hero { margin-bottom: 4rem; }
+    .welcome-hero h2 { 
+      font-family: var(--font-serif); 
+      font-size: clamp(2.5rem, 8vw, 3.5rem); 
+      line-height: 1; 
+      margin-bottom: 1.5rem;
+    }
+    .welcome-hero p { font-size: 1.1rem; opacity: 0.6; max-width: 500px; }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .option-card {
+      border: 1px solid var(--black);
+      padding: 2.5rem;
+      transition: var(--transition);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 250px;
+    }
+
+    .option-card:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .option-card h3 {
+      font-family: var(--font-logo);
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .option-card p { font-size: 0.95rem; opacity: 0.7; }
+
+    /* --- BÍBLIA COMPLETA --- */
+    .search-zone { margin-bottom: 3rem; }
+    .search-input {
+      width: 100%;
+      padding: 1.5rem 0;
+      font-size: 2rem;
+      border: none;
+      border-bottom: 4px solid var(--black);
+      font-family: var(--font-serif);
+      outline: none;
+      background: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .btn-search {
+      background: var(--black);
+      color: var(--white);
+      padding: 1rem 2rem;
+      border: none;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .reader-view {
+      margin-top: 4rem;
+      max-width: 750px;
+      margin-inline: auto;
+    }
+
+    .chapter-title {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--gray-border);
+      padding-bottom: 1rem;
+    }
+
+    .verse-line {
+      display: flex;
+      gap: 1.2rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .v-num {
+      font-weight: 800;
+      font-size: 0.8rem;
+      color: #999;
+      padding-top: 0.6rem;
+      min-width: 25px;
+    }
+
+    .v-text {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      line-height: 1.9;
+      color: #111;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      padding: 3rem 5%;
+      text-align: center;
+      border-top: 1px solid var(--gray-border);
+      font-family: var(--font-logo);
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 600px) {
+      .welcome-hero h2 { font-size: 2.8rem; }
+      .option-card { padding: 1.5rem; min-height: 200px; }
+      .search-input { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-text" onclick="changeView('home')" style="cursor:pointer">Quadrangular</div>
+    <div class="logo-container" onclick="changeView('home')">
+      <!-- Representação SVG fiel aos 4 símbolos da foto: Cruz, Pomba, Cálice, Coroa -->
+      <svg class="logo-svg" viewBox="0 0 100 100">
+        <!-- Moldura Quadrada -->
+        <rect x="5" y="5" width="90" height="90" fill="none" stroke="white" stroke-width="4"/>
+        <!-- Linhas Divisórias -->
+        <line x1="50" y1="5" x2="50" y2="95" stroke="white" stroke-width="2"/>
+        <line x1="5" y1="50" x2="95" y2="50" stroke="white" stroke-width="2"/>
+        
+        <!-- 1. Cruz (Superior Esquerdo) -->
+        <path d="M25 15 v25 M18 25 h14" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        
+        <!-- 2. Pomba (Superior Direito) -->
+        <path d="M65 20 c5 0 10 5 10 10 s-5 10-10 10 c-2 0-8-5-10-8 c5 0 10-2 10-2" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        
+        <!-- 3. Cálice (Inferior Esquerdo) -->
+        <path d="M20 60 h20 l-4 15 h-12 z M30 75 v10 M22 85 h16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        
+        <!-- 4. Coroa (Inferior Direito) -->
+        <path d="M60 85 h20 l4-15 l-7 4 l-7-7 l-7 7 l-7-4 z" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </header>
+
+  <main>
+    <!-- VISTA: HOME (CARDÁPIO) -->
+    <section id="view-home" class="view active">
+      <div class="welcome-hero">
+        <p style="text-transform: uppercase; letter-spacing: 4px; font-weight: 800; font-size: 0.65rem; margin-bottom: 1rem;">Igreja do Evangelho Quadrangular</p>
+        <h2>Jesus Cristo é <br>o mesmo ontem, <br>hoje e eternamente.</h2>
+        <p>Aceda aos nossos recursos bíblicos e ferramentas de apoio espiritual diretamente do seu dispositivo.</p>
+      </div>
+
+      <div class="menu-grid">
+        <div class="option-card" onclick="changeView('bible')">
+          <div>
+            <h3>Ler a Bíblia</h3>
+            <p>Consulte capítulos e versículos completos para acompanhar o culto.</p>
+          </div>
+          <span style="font-weight: 900; opacity: 0.1; font-size: 3rem;">01</span>
+        </div>
+
+        <div class="option-card" onclick="changeView('feelings')">
+          <div>
+            <h3>Guia de Apoio</h3>
+            <p>Versículos selecionados para momentos de medo, ansiedade ou gratidão.</p>
+          </div>
+          <span style="font-weight: 900; opacity: 0.1; font-size: 3rem;">02</span>
+        </div>
+
+        <div class="option-card" onclick="changeView('notes')">
+          <div>
+            <h3>Minhas Notas</h3>
+            <p>Anote as revelações da pregação e guarde-as no seu telemóvel.</p>
+          </div>
+          <span style="font-weight: 900; opacity: 0.1; font-size: 3rem;">03</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISTA: BÍBLIA -->
+    <section id="view-bible" class="view">
+      <div class="search-zone">
+        <p style="font-weight: 800; text-transform: uppercase; font-size: 0.6rem; letter-spacing: 2px;">Introduza a Referência</p>
+        <input type="text" id="bible-query" class="search-input" placeholder="Ex: Salmos 91 ou João 3:16" onkeypress="checkEnter(event)">
+        <button class="btn-search" onclick="loadBible()">Consultar Bíblia</button>
+      </div>
+
+      <div id="bible-output" class="reader-view">
+        <!-- Texto bíblico carregado aqui -->
+      </div>
+    </section>
+
+    <!-- VISTA: SENTIMENTOS -->
+    <section id="view-feelings" class="view">
+      <div class="welcome-hero">
+        <h2>Como se <br>sente hoje?</h2>
+      </div>
+      <div class="menu-grid">
+        <div class="option-card" style="min-height: 150px; padding: 1.5rem;" onclick="quickLoad('Filipenses 4:6')">
+          <h3>Ansiedade</h3>
+          <p>Encontre a paz que excede o entendimento.</p>
+        </div>
+        <div class="option-card" style="min-height: 150px; padding: 1.5rem;" onclick="quickLoad('Salmos 34:18')">
+          <h3>Tristeza</h3>
+          <p>O Senhor está perto dos quebrantados.</p>
+        </div>
+        <div class="option-card" style="min-height: 150px; padding: 1.5rem;" onclick="quickLoad('Isaías 41:10')">
+          <h3>Medo</h3>
+          <p>Não temas, pois Eu sou contigo.</p>
+        </div>
+        <div class="option-card" style="min-height: 150px; padding: 1.5rem;" onclick="quickLoad('Salmos 103')">
+          <h3>Gratidão</h3>
+          <p>Bendize, ó minha alma, ao Senhor.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISTA: NOTAS -->
+    <section id="view-notes" class="view">
+      <div class="welcome-hero">
+        <h2>Anotações do <br>Coração</h2>
+      </div>
+      <textarea id="note-pad" style="width:100%; height:400px; padding: 2rem; border: 2px solid var(--black); font-family:inherit; font-size:1.1rem; outline:none;" placeholder="Escreva aqui as suas notas da pregação..."></textarea>
+      <button class="btn-search" style="margin-top: 1rem;" onclick="saveNotes()">Guardar Notas</button>
+    </section>
+  </main>
+
+  <footer>
+    QUADRANGULAR &copy; 2026 | JESUS CRISTO É O SENHOR
+  </footer>
+
+  <script>
+    // Troca de Vistas (SPA)
+    function changeView(id) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById('view-' + id).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    // Busca Bíblica Completa (API)
+    async function loadBible() {
+      const val = document.getElementById('bible-query').value;
+      const out = document.getElementById('bible-output');
+      if(!val) return;
+
+      out.innerHTML = "<p style='text-align:center; opacity:0.5'>Abrindo as Sagradas Escrituras...</p>";
+
+      try {
+        const res = await fetch(`https://bible-api.com/${encodeURIComponent(val)}?translation=almeida`);
+        const data = await res.json();
+
+        if(data.error) throw new Error();
+
+        let html = `<h2 class="chapter-title">${data.reference}</h2>`;
+        data.verses.forEach(v => {
+          html += `
+            <div class="verse-line">
+              <span class="v-num">${v.verse}</span>
+              <span class="v-txt">${v.text}</span>
+            </div>
+          `;
+        });
+        out.innerHTML = html;
+        out.scrollIntoView({ behavior: 'smooth' });
+      } catch (e) {
+        out.innerHTML = "<p style='color:red; text-align:center;'>Referência não encontrada. Tente: Livro Capítulo (Ex: Salmos 23)</p>";
+      }
+    }
+
+    function checkEnter(e) { if(e.key === 'Enter') loadBible(); }
+
+    function quickLoad(ref) {
+      changeView('bible');
+      document.getElementById('bible-query').value = ref;
+      loadBible();
+    }
+
+    // Gestão de Notas Locais
+    function saveNotes() {
+      const txt = document.getElementById('note-pad').value;
+      localStorage.setItem('quad_notes', txt);
+      alert('As suas notas foram guardadas localmente no seu telemóvel.');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('note-pad').value = localStorage.getItem('quad_notes') || '';
+    });
+  </script>
+</body>
+</html>
